@@ -1,43 +1,18 @@
 /************
  * DATABASE *
  ************/
-let db = require("/models/index")
-/* hard-coded data */
-var albums = [];
-albums.push({
-              _id: 132,
-              artistName: 'Nine Inch Nails',
-              name: 'The Downward Spiral',
-              releaseDate: '1994, March 8',
-              genres: [ 'industrial', 'industrial metal' ]
-            });
-albums.push({
-              _id: 133,
-              artistName: 'Metallica',
-              name: 'Metallica',
-              releaseDate: '1991, August 12',
-              genres: [ 'heavy metal' ]
-            });
-albums.push({
-              _id: 134,
-              artistName: 'The Prodigy',
-              name: 'Music for the Jilted Generation',
-              releaseDate: '1994, July 4',
-              genres: [ 'electronica', 'breakbeat hardcore', 'rave', 'jungle' ]
-            });
-albums.push({
-              _id: 135,
-              artistName: 'Johnny Cash',
-              name: 'Unchained',
-              releaseDate: '1996, November 5',
-              genres: [ 'country', 'rock' ]
-            });
+let db = require("../models")
+
+
+
 
 
 // GET /api/albums
 function index(req, res) {
   // send back all albums as JSON
-db.Albums.find({}, function (err, allAlbums) {
+
+db.Album.find({}, function (err, allAlbums) {
+  if(err) console.log(err);
   res.json(allAlbums);
 })
 }
@@ -45,6 +20,14 @@ db.Albums.find({}, function (err, allAlbums) {
 // POST /api/albums
 function create(req, res) {
   // create an album based on request body and send it back as JSON
+console.log("whats up");
+db.Album.create(req.body, (err, createdAlbumsObject) => {  
+    if (err) {
+        res.send(err);
+    }
+    console.log(req.body);
+    console.log("hello it works "+res.send(createdAlbumsObject));
+});
 }
 
 // GET /api/albums/:albumId

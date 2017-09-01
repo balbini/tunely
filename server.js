@@ -9,8 +9,7 @@ var app = express();
 app.use(express.static(__dirname + '/public'));
 
 var controllers = require('./controllers');
-
-
+var bodyParser = require('body-parser')
 /**********
  * ROUTES *
  **********/
@@ -30,13 +29,14 @@ app.get('/', function homepage (req, res) {
  */
 
 app.get('/api', controllers.api.index);
-app.get('api/albums', controllers.albums.index);
+app.get('/api/albums', controllers.albums.index);
+app.post('/api/albums', controllers.albums.create);
 
 /**********
  * SERVER *
  **********/
 
 // listen on port 3000
-app.listen(process.env.PORT || 3000, function () {
+app.listen(process.env.PORT || 4000, function () {
   console.log('Express server is running on http://localhost:3000/');
 });

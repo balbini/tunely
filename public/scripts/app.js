@@ -6,6 +6,7 @@
  */
 
 
+
 /* hard-coded data! */
 var sampleAlbums = [];
 sampleAlbums.push({
@@ -47,10 +48,39 @@ $(document).ready(function() {
     success: handleSuccess,
     error: handleError
   });
+
+ 
+
+
+
+$( ".form-horizontal" ).on( "submit", function( event ) {
+  event.preventDefault();
+   $.ajax({
+    method: 'POST',
+    url: '/api/albums',
+    success: renderAlbum,
+    error: handleError
+  });
+
+  console.log( $(this).serialize() );
+
 });
 
+
+
+
+
+});
+
+
+
+
+
+
 function handleSuccess (albums) {
+  console.log(albums);
     albums.forEach(function(album) {
+      console.log(album)
       renderAlbum(album);
     });
 };
